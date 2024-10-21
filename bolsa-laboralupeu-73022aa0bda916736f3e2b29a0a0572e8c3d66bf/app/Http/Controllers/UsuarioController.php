@@ -59,17 +59,16 @@ class UsuarioController extends Controller
         // Validar los datos de entrada
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'dni' => 'nullable|string|max:20',
-            'ruc' => 'nullable|string|max:20',
-            'correo' => 'nullable|email',
-            'celular' => 'nullable|string|max:20',
-            'rol' => 'required|in:admin,empresa,postulante,supervisor',
-            'archivo_cv' => 'nullable|file|max:2048',
-            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'dni' => 'required|digits:8|numeric', // Solo acepta 8 dígitos
+            'ruc' => 'required|digits:11|numeric', // Solo acepta 11 dígitos
+            'email' => 'required|string|email|max:255|unique:users',
+            'correo' => 'nullable|email|max:255',
+            'celular' => 'required|digits:9|numeric', // Solo acepta 9 dígitos
+            'rol' => 'required|string',
+            'password' => 'required|string|confirmed|min:8',
+            'archivo_cv' => 'nullable|file|max:2048', // Opcional: validación para el archivo CV
         ]);
-
+        
         // Crear un nuevo usuario
         $user = new User;
         $user->name = $request->name;

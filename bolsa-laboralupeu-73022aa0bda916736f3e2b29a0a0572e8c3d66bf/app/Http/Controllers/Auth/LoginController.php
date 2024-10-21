@@ -30,8 +30,18 @@ class LoginController extends Controller
             // Redirigir al dashboard si el usuario está aprobado
             return redirect()->intended('/dashboard');
         }
+        
 
         // Redirigir de nuevo con un mensaje de error si la autenticación falla
         return redirect()->back()->withErrors(['email' => 'Las credenciales no son correctas.']);
     }
+    public function logout(Request $request)
+{
+    Auth::logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/');
+}
 }
