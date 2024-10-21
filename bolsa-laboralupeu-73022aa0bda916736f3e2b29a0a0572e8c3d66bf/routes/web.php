@@ -35,3 +35,6 @@ Route::resource('usuarios', UsuarioController::class)->names([
     'update' => 'usuarios.update',
     'destroy' => 'usuarios.destroy',
 ]);
+
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
